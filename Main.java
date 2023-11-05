@@ -1,3 +1,5 @@
+// For Online GDB COMPILER 
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -49,7 +51,7 @@ class Singleroom implements Serializable
         this.gender=gender;
     }
 }
-class Doubleroom extends Singleroom
+class Doubleroom extends Singleroom implements Serializable
 { 
     String name2;
     String contact2;
@@ -356,6 +358,7 @@ class Hotel
     
     static void deallocate(int rn,int rtype)
     {
+        int j;
         char w;
         switch (rtype) {
             case 1:               
@@ -484,9 +487,8 @@ class write implements Runnable
     public void run() {
           try{
         FileOutputStream fout=new FileOutputStream("backup");
-        try (ObjectOutputStream oos = new ObjectOutputStream(fout)) {
-            oos.writeObject(hotel_ob);
-        }
+        ObjectOutputStream oos=new ObjectOutputStream(fout);
+        oos.writeObject(hotel_ob);
         }
         catch(Exception e)
         {
@@ -506,9 +508,8 @@ public class Main {
         if(f.exists())
         {
             FileInputStream fin=new FileInputStream(f);
-            try (ObjectInputStream ois = new ObjectInputStream(fin)) {
-                Hotel.hotel_ob=(holder)ois.readObject();
-            }
+            ObjectInputStream ois=new ObjectInputStream(fin);
+            Hotel.hotel_ob=(holder)ois.readObject();
         }
         Scanner sc = new Scanner(System.in);
         int ch,ch2;
